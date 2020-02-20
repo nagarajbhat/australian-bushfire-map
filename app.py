@@ -22,7 +22,7 @@ def index():
 	data = df_merged
 	df_filter = data.filter(["latitude","longitude","acq_date","frp"])
 
-	df = df_filter[(df_filter['acq_date']>='2019-11-01')&(df_filter['acq_date']<='2020-01-30')] 
+	df = df_filter[(df_filter['acq_date']>='2019-12-01')&(df_filter['acq_date']<='2020-01-02')] 
 
 
 
@@ -38,7 +38,7 @@ def index():
 			df_day_list.append(dfmap.loc[dfmap.acq_date == day, ['acq_date','latitude', 'longitude', 'frp']].groupby(['latitude', 'longitude']).sum().reset_index().values.tolist())
     
 		# Create a map using folium
-		m = folium.Map(location, zoom_start=zoom,tiles='Stamen Terrain',height=400,width=600)
+		m = folium.Map(location, zoom_start=zoom,tiles='Stamen Terrain',height=500)
 		#creating heatmap with time
 		HeatMapWithTime(df_day_list,index =list(dfmap.acq_date.sort_values().unique()), auto_play=False,radius=radius, gradient={0.2: 'blue', 0.4: 'lime', 0.6: 'orange', 1: 'red'}, min_opacity=0.5, max_opacity=0.8, use_local_extrema=True).add_to(m)
 
